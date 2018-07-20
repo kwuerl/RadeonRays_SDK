@@ -49,7 +49,7 @@ namespace Calc
         }
         catch (CLWException& e)
         {
-            throw ExceptionClw(e.what());
+            throw e;//throw ExceptionClw(e.what());
         }
     }
 
@@ -93,7 +93,7 @@ namespace Calc
         }
         catch (CLWException& e)
         {
-            throw ExceptionClw(e.what());
+            throw e;//throw ExceptionClw(e.what());
         }
     }
     
@@ -108,7 +108,7 @@ namespace Calc
         }
         catch (CLWException& e)
         {
-            throw ExceptionClw(e.what());
+            throw e;//throw ExceptionClw(e.what());
         }
     }
 

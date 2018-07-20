@@ -46,6 +46,7 @@ public:
         kMem,
         kInt,
         kUInt,
+        kUInt2,
         kFloat,
         kFloat2,
         kFloat4,
@@ -56,6 +57,7 @@ public:
     ParameterHolder(cl_mem    mem) : mem_(mem) { type_ = kMem; }
     ParameterHolder(cl_int    intValue) : intValue_(intValue) { type_ = kInt; }
     ParameterHolder(cl_uint   uintValue) : uintValue_(uintValue) { type_ = kUInt; }
+    ParameterHolder(cl_uint2   uint2Value) : uint2Value_(uint2Value) { type_ = kUInt2; }
     ParameterHolder(cl_float  floatValue) : floatValue_(floatValue) { type_ = kFloat; }
     ParameterHolder(cl_float2  floatValue) : floatValue2_(floatValue) { type_ = kFloat2; }
     ParameterHolder(cl_float4  floatValue) : floatValue4_(floatValue) { type_ = kFloat4; }
@@ -72,6 +74,7 @@ private:
         cl_mem mem_;
         cl_int intValue_;
         cl_uint uintValue_;
+        cl_uint2 uint2Value_;
         cl_float floatValue_;
         cl_float2 floatValue2_;
         cl_float4 floatValue4_;

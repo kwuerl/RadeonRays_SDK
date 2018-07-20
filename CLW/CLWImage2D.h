@@ -44,7 +44,9 @@ THE SOFTWARE.
 class CLWImage2D : public ReferenceCounter<cl_mem, clRetainMemObject, clReleaseMemObject>
 {
 public:
+    static CLWImage2D Create(cl_context context, cl_mem_flags flags, cl_image_format const* imgFormat, size_t width, size_t height, size_t rowPitch);
     static CLWImage2D Create(cl_context context, cl_image_format const* imgFormat, size_t width, size_t height, size_t rowPitch);
+    static CLWImage2D CreateFromGLTexture(cl_context context, cl_mem_flags flags, cl_GLint texture);
     static CLWImage2D CreateFromGLTexture(cl_context context, cl_GLint texture);
 
     CLWImage2D() = default;

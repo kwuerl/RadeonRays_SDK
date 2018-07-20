@@ -29,6 +29,11 @@ THE SOFTWARE.
 
 CLWImage2D CLWImage2D::Create(cl_context context, cl_image_format const* imgFormat, size_t width, size_t height, size_t rowPitch)
 {
+    return Create(context, CL_MEM_READ_WRITE, imgFormat, width, height, rowPitch );
+}
+
+CLWImage2D CLWImage2D::Create(cl_context context, cl_mem_flags flags, cl_image_format const* imgFormat, size_t width, size_t height, size_t rowPitch)
+{
     cl_int status = CL_SUCCESS;
     
     cl_image_desc desc;
@@ -41,7 +46,7 @@ CLWImage2D CLWImage2D::Create(cl_context context, cl_image_format const* imgForm
     desc.num_samples = 0;
     desc.buffer = nullptr;
     
-    cl_mem deviceImg = clCreateImage(context, CL_MEM_READ_WRITE, imgFormat, &desc, nullptr, &status);
+    cl_mem deviceImg = clCreateImage(context, flags, imgFormat, &desc, nullptr, &status);
 
     ThrowIf(status != CL_SUCCESS, status, "clCreateImage2D failed");
 
@@ -52,14 +57,18 @@ CLWImage2D CLWImage2D::Create(cl_context context, cl_image_format const* imgForm
     return image;
 }
 
-
 CLWImage2D CLWImage2D::CreateFromGLTexture(cl_context context, cl_GLint texture)
+{
+    return CreateFromGLTexture(context, CL_MEM_WRITE_ONLY, texture);
+}
+
+CLWImage2D CLWImage2D::CreateFromGLTexture(cl_context context, cl_mem_flags flags, cl_GLint texture)
 {
     cl_int status = CL_SUCCESS;
 
     // TODO: handle that gracefully: GL_TEXTURE_2D
-    cl_mem deviceImg = clCreateFromGLTexture(context, CL_MEM_WRITE_ONLY, 0x0DE1, 0, texture, &status);
-    
+    cl_mem deviceImg = clCreateFromGLTexture(context, flags, 0x0DE1, 0, texture, &status);
+
     ThrowIf(status != CL_SUCCESS, status, "clCreateFromGLTexture failed");
     
     CLWImage2D image(deviceImg);

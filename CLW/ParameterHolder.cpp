@@ -38,6 +38,10 @@ void ParameterHolder::SetArg(cl_kernel kernel, unsigned int idx)
         case ParameterHolder::kUInt:
             status = clSetKernelArg(kernel, idx, sizeof(cl_uint), &uintValue_);
             break;
+
+        case ParameterHolder::kUInt2:
+            status = clSetKernelArg(kernel, idx, sizeof(cl_uint2), &uint2Value_);
+            break;
             
         case ParameterHolder::kFloat:
             status = clSetKernelArg(kernel, idx, sizeof(cl_float), &floatValue_);

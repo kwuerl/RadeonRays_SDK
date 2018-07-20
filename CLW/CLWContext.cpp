@@ -69,7 +69,7 @@ CLWEvent CLWContext::Launch1D(unsigned int idx, size_t globalSize, size_t localS
     cl_event event = nullptr;
 
     status = clEnqueueNDRangeKernel(commandQueues_[idx], kernel, 1, nullptr, &wgGlobalSize, &wgLocalSize, 0, nullptr, &event);
-    ThrowIf(status != CL_SUCCESS, status, "clEnqueueNDRangeKernel failed");
+    ThrowIf(status != CL_SUCCESS, status, "clEnqueueNDRangeKernel failed" + std::to_string(status));
 
     return CLWEvent::Create(event);
 }
@@ -84,7 +84,7 @@ CLWEvent CLWContext::Launch1D(unsigned int idx, size_t globalSize, size_t localS
     cl_event eventToWait = depEvent;
 
     status = clEnqueueNDRangeKernel(commandQueues_[idx], kernel, 1, nullptr, &wgGlobalSize, &wgLocalSize, 1, &eventToWait, &event);
-    ThrowIf(status != CL_SUCCESS, status, "clEnqueueNDRangeKernel failed");
+    ThrowIf(status != CL_SUCCESS, status, "clEnqueueNDRangeKernel failed" + std::to_string(status));
 
     return CLWEvent::Create(event);
 }
@@ -102,7 +102,7 @@ CLWEvent CLWContext::Launch1D(unsigned int idx, size_t globalSize, size_t localS
         eventsToWait[i] = events[i];
 
     status = clEnqueueNDRangeKernel(commandQueues_[idx], kernel, 2, nullptr, &wgGlobalSize, &wgLocalSize, (cl_uint)eventsToWait.size(), &eventsToWait[0], &event);
-    ThrowIf(status != CL_SUCCESS, status, "clEnqueueNDRangeKernel failed");
+    ThrowIf(status != CL_SUCCESS, status, "clEnqueueNDRangeKernel failed" + std::to_string(status));
 
     return CLWEvent::Create(event);
 }
@@ -113,7 +113,7 @@ CLWEvent CLWContext::Launch2D(unsigned int idx, size_t* globalSize, size_t* loca
     cl_event event = nullptr;
 
     status = clEnqueueNDRangeKernel(commandQueues_[idx], kernel, 2, nullptr, globalSize, localSize, 0, nullptr, &event);
-    ThrowIf(status != CL_SUCCESS, status, "clEnqueueNDRangeKernel failed");
+    ThrowIf(status != CL_SUCCESS, status, "clEnqueueNDRangeKernel failed" + std::to_string(status));
 
     return CLWEvent::Create(event);
 }
@@ -125,7 +125,7 @@ CLWEvent CLWContext::Launch2D(unsigned int idx, size_t* globalSize, size_t* loca
     cl_event eventToWait = depEvent;
 
     status = clEnqueueNDRangeKernel(commandQueues_[idx], kernel, 2, nullptr, globalSize, localSize, 1, &eventToWait, &event);
-    ThrowIf(status != CL_SUCCESS, status, "clEnqueueNDRangeKernel failed");
+    ThrowIf(status != CL_SUCCESS, status, "clEnqueueNDRangeKernel failed" + std::to_string(status));
 
     return CLWEvent::Create(event);
 }
@@ -141,7 +141,7 @@ CLWEvent CLWContext::Launch2D(unsigned int idx, size_t* globalSize, size_t* loca
         eventsToWait[i] = events[i];
 
     status = clEnqueueNDRangeKernel(commandQueues_[idx], kernel, 2, nullptr, globalSize, localSize, (cl_uint)eventsToWait.size(), &eventsToWait[0], &event);
-    ThrowIf(status != CL_SUCCESS, status, "clEnqueueNDRangeKernel failed");
+    ThrowIf(status != CL_SUCCESS, status, "clEnqueueNDRangeKernel failed" + std::to_string(status));
 
     return CLWEvent::Create(event);
 }
@@ -153,7 +153,7 @@ CLWEvent CLWContext::Launch3D(unsigned int idx, size_t* globalSize, size_t* loca
     cl_event event = nullptr;
 
     status = clEnqueueNDRangeKernel(commandQueues_[idx], kernel, 3, nullptr, globalSize, localSize, 0, nullptr, &event);
-    ThrowIf(status != CL_SUCCESS, status, "clEnqueueNDRangeKernel failed");
+    ThrowIf(status != CL_SUCCESS, status, "clEnqueueNDRangeKernel failed" + std::to_string(status));
 
     return CLWEvent::Create(event);
 }
@@ -165,7 +165,7 @@ CLWEvent CLWContext::Launch3D(unsigned int idx, size_t* globalSize, size_t* loca
     cl_event eventToWait = depEvent;
 
     status = clEnqueueNDRangeKernel(commandQueues_[idx], kernel, 3, nullptr, globalSize, localSize, 1, &eventToWait, &event);
-    ThrowIf(status != CL_SUCCESS, status, "clEnqueueNDRangeKernel failed");
+    ThrowIf(status != CL_SUCCESS, status, "clEnqueueNDRangeKernel failed" + std::to_string(status));
 
     return CLWEvent::Create(event);
 }
@@ -181,7 +181,7 @@ CLWEvent CLWContext::Launch3D(unsigned int idx, size_t* globalSize, size_t* loca
         eventsToWait[i] = events[i];
 
     status = clEnqueueNDRangeKernel(commandQueues_[idx], kernel, 3, nullptr, globalSize, localSize, (cl_uint)eventsToWait.size(), &eventsToWait[0], &event);
-    ThrowIf(status != CL_SUCCESS, status, "clEnqueueNDRangeKernel failed");
+    ThrowIf(status != CL_SUCCESS, status, "clEnqueueNDRangeKernel failed" + std::to_string(status));
 
     return CLWEvent::Create(event);
 }
@@ -273,7 +273,7 @@ void CLWContext::ReleaseGLObjects(unsigned int idx, std::vector<cl_mem> const& o
 void CLWContext::Finish(unsigned int idx) const
 {
     cl_int status = clFinish(commandQueues_[idx]);
-    ThrowIf(status != CL_SUCCESS, status, "clFinish failed");
+    ThrowIf(status != CL_SUCCESS, status, "clFinish failed" + std::to_string(status));
 }
 
 void CLWContext::Flush(unsigned int idx) const
